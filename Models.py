@@ -25,7 +25,7 @@ class Categorie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String(), nullable=False)
-    livres = db.relationship('Livre', backref='categorie', lazy=True, cascade="all,delete")
+    livres = db.relationship('Livre', backref='categorie', lazy=True)
 
     def __init__(self, name, description):
         self.name = name
