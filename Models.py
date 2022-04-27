@@ -1,4 +1,3 @@
-from tkinter import CASCADE
 from flask_sqlalchemy import SQLAlchemy
 from flask import jsonify
 
@@ -26,7 +25,7 @@ class Categorie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String(), nullable=False)
-    livres = db.relationship('Livre', backref='categorie', lazy=True)
+    livres = db.relationship('Livre', backref='categorie', lazy=True, cascade="all,delete")
 
     def __init__(self, name, description):
         self.name = name
@@ -61,7 +60,7 @@ class Livre(db.Model):
     date_publication = db.Column(db.Date(), nullable=False)
     auteur = db.Column(db.String(), nullable=False)
     editeur = db.Column(db.String(), nullable=False)
-    categorie_id = db.Column(db.Integer, db.ForeignKey('categorie.id'), )
+    categorie_id = db.Column(db.Integer, db.ForeignKey('categorie.id'))
 
     def __init__(self, isbn, titre, categorie_id, date_publication, auteur, editeur):
         self.isbn = isbn
