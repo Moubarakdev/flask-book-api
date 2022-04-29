@@ -1,4 +1,3 @@
-import os
 from flask import Flask, abort, jsonify, request
 from Models import Livre, Categorie, setup_db
 
@@ -73,13 +72,14 @@ def add_categorie():
 ##################################
 # Modifier une categorie
 ##################################
-@app.route('/livres/<int:id>',methods=['PATCH'])
+@app.route('/categories/<int:id>',methods=['PATCH'])
 def update_categorie(id):
     body = request.get_json()
     try:
         categorie = Categorie.query.get(id)
         if categorie is None:
             abort(404)
+
         categorie.name = body.get("name")
         categorie.description = body.get("description")
         
