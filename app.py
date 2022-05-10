@@ -1,10 +1,13 @@
+import json
 from flask import Flask, abort, jsonify, request
 from Models import Livre, Categorie, setup_db
-
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 setup_db(app)
+CORS(app)
 
+#CORS(app, ressorces={r"/api/*":{"origins" : "*"}})
 # Route test
 @app.route('/', methods=['GET'])
 def index():
@@ -45,7 +48,7 @@ def get_categorie(id):
     else:
         return jsonify ({
             'success' : True,
-            'categories': categorie.format()
+            'categorie': categorie.format()
         })
 
 ##################################
@@ -66,7 +69,7 @@ def add_categorie():
     return jsonify({
         "success" : True,
         "categorie_id" : categorie.id,
-        "liste_categories" : [Categorie.format() for categorie in Categorie.query.all()]
+        "total_categories" : [Categorie.format() for categorie in Categorie.query.all()]
     })
 
 ##################################
@@ -103,8 +106,8 @@ def delete_categorie(id):
         categorie.delete()
         return jsonify({
             'success':True,
-            'categorie_supprimé ': categorie.id,
-            'total_categorie':len(Categorie.query.all())
+            'supprimer ': categorie.id,
+            'nombre_categories':len(Categorie.query.all())
         })
     except:
       abort(422) #Unprocessable Entity
@@ -167,7 +170,7 @@ def add_livre():
     return jsonify({
         "success" : True,
         "livre_id" : livre.id,
-        "liste_livre" : [livre.format() for livre in Livre.query.all()]
+        "total_livres" : [livre.format() for livre in Livre.query.all()]
     })
 
 ##################################
@@ -210,8 +213,8 @@ def delete_livre(id):
         livre.delete()
         return jsonify({
             'success':True,
-            'Livre_supprimé ': livre.id,
-            'total_livre':len(Livre.query.all())
+            'supprimer ': livre.id,
+            'total_livres':len(Livre.query.all())
         })
     except:
       abort(422) #Unprocessable Entity
@@ -236,7 +239,14 @@ def not_found(error):
         "message": "Not found"
         }), 404
 
-
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({
+        'success' : False,
+        'error' : 400,
+        'message': "Internal Server Error",
+    }), 500
+    
 @app.errorhandler(422)
 def unprocessable(error):
     return jsonify({
@@ -267,5 +277,3 @@ def error_badRequest(error):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
