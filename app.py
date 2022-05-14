@@ -1,5 +1,8 @@
+from ast import Not
 import json
+from re import T
 from flask import Flask, abort, jsonify, request
+from sqlalchemy import null
 from Models import Livre, Categorie, setup_db
 from flask_cors import CORS, cross_origin
 
@@ -27,50 +30,57 @@ def index():
 ##################################
 @app.route('/categories', methods=['GET'])
 def get_categories():
-    categories = Categorie.query.order_by(Categorie.id).all()
-    categorie_format = [categorie.format() for categorie in categories]
-    if categories is None:
-        abort(404)
-    return jsonify({
-        'success': True,
-        'categories': categorie_format,
-        'nombre_categories': len(categories)
-    })
+    try:
+        categories = Categorie.query.order_by(Categorie.id).all()
+        categorie_format = [categorie.format() for categorie in categories]
+        if categories is None:
+            abort(404)
+        return jsonify({
+            'success': True,
+            'categories': categorie_format,
+            'nombre_categories': len(categories)
+        })
+    except:
+        abort(400)
 
 ##################################
 # Récupérer une catégorie
 ##################################
 @app.route('/categories/<int:id>', methods=['GET'])
 def get_categorie(id):
-    categorie = Categorie.query.get(id)
-    if categorie is None: 
-        abort(404)
-    else:
-        return jsonify ({
-            'success' : True,
-            'categorie': categorie.format()
-        })
+    try:
+        categorie = Categorie.query.get(id)
+        if categorie is None: 
+            abort(404)
+        else:
+            return jsonify ({
+                'success' : True,
+                'categorie': categorie.format()
+            })
+    except:
+        abort(400)
 
 ##################################
 # Ajouter une categorie
 ##################################
 @app.route('/categories', methods=['POST'])
 def add_categorie():
-    body = request.get_json()
-
-    new_name = body.get("name")
-    new_description = body.get("description")
     
-    existe_categorie = Categorie.query.filter_by(new_name)
-    if existe_categorie is not None:
-       abort(400)
-    categorie = Categorie(name=new_name,description=new_description)
-    categorie.insert()
-    return jsonify({
-        "success" : True,
-        "categorie_id" : categorie.id,
-        "total_categories" : [Categorie.format() for categorie in Categorie.query.all()]
-    })
+    body = request.get_json()
+    try:
+        new_name = body.get("name")
+        new_description = body.get("description")
+
+
+        categorie = Categorie(name=new_name,description=new_description)
+        categorie.insert()
+        return jsonify({
+            "success" : True,
+            "categorie_id" : categorie.id,
+            "total_categories" : [categorie.format() for categorie in Categorie.query.all()]
+        })
+    except :
+        abort(400)
 
 ##################################
 # Modifier une categorie
@@ -126,19 +136,23 @@ def delete_categorie(id):
 ##################################
 @app.route('/livres', methods=['GET'])
 def get_livres():
-    livres = Livre.query.order_by(Livre.id).all()
-    livre_format = [livre.format() for livre in livres]
-    return jsonify({
-        'success': True,
-        'livres': livre_format,
-        'nombre_livres': len(livres)
-    })
+    try:
+        livres = Livre.query.order_by(Livre.id).all()
+        livre_format = [livre.format() for livre in livres]
+        return jsonify({
+            'success': True,
+            'livres': livre_format,
+            'nombre_livres': len(livres)
+        })
+    except:
+        abort(400)
 
 ##################################
 # Récupérer un livre
 ##################################
 @app.route('/livres/<int:id>', methods=['GET'])
 def get_livre(id):
+    
     livre = Livre.query.get(id)
     if livre is None: 
         abort(404)
@@ -147,31 +161,35 @@ def get_livre(id):
             'success' : True,
             'livres': livre.format(),
         })
-
+  
+  
 ##################################
 # Ajouter un livre
 ##################################
 @app.route('/livres', methods=['POST'])
 def add_livre():
     body = request.get_json()
+    
+    try:
+        new_isbn = body.get("isbn")
+        new_titre = body.get("titre")
+        new_categorie_id = body.get("categorie_id")
+        new_date_publication = body.get("date_publication")
+        new_auteur = body.get("auteur")
+        new_editeur = body.get("editeur")
 
-    new_isbn = body.get("isbn")
-    new_titre = body.get("titre")
-    new_categorie_id = body.get("categorie_id")
-    new_date_publication = body.get("date_publication")
-    new_auteur = body.get("auteur")
-    new_editeur = body.get("editeur")
-
-    categorie = Categorie.query.get(new_categorie_id) # on vérifie si la catégorie existe
-    if categorie is None:
-       abort(404)
-    livre = Livre(isbn=new_isbn,titre=new_titre,categorie_id=new_categorie_id,date_publication=new_date_publication,auteur=new_auteur,editeur=new_editeur)
-    livre.insert()
-    return jsonify({
-        "success" : True,
-        "livre_id" : livre.id,
-        "total_livres" : [livre.format() for livre in Livre.query.all()]
-    })
+        categorie = Categorie.query.get(new_categorie_id) # on vérifie si la catégorie existe
+        if categorie is None:
+            abort(404)
+        livre = Livre(isbn=new_isbn,titre=new_titre,categorie_id=new_categorie_id,date_publication=new_date_publication,auteur=new_auteur,editeur=new_editeur)
+        livre.insert()
+        return jsonify({
+            "success" : True,
+            "livre_id" : livre.id,
+            "total_livres" : [livre.format() for livre in Livre.query.all()]
+        })
+    except:
+        abort(400)
 
 ##################################
 # Modifier un livre
@@ -243,7 +261,7 @@ def not_found(error):
 def internal_server_error(error):
     return jsonify({
         'success' : False,
-        'error' : 400,
+        'error' : 500,
         'message': "Internal Server Error",
     }), 500
     

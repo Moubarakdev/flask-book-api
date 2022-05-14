@@ -1,7 +1,8 @@
+from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 from flask import jsonify
 
-database_name = "bookap"
+database_name = "booksdb"
 # postgresql://postgres:moubarak@localhost:5432/bookap
 database_path = "postgresql://{}:{}@{}/{}".format(
     'postgres', 'moubarak', 'localhost:5432', database_name)
