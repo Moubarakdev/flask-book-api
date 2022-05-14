@@ -1,6 +1,6 @@
-# Full Stack BOOK API
+# API LIVRE Full Stack
 
-## Getting Started
+## DÉMARRAGE
 
 ### INSTALLATION DES DÉPENDANCES
 
@@ -76,13 +76,13 @@ python app.py
 
 ## RÉFÉRENCE API
 
-Getting starter
+Démarrer
 
-Base URL: At present this app can only be run locally and is not hosted as a base URL. The backend app is hosted at the default, http://localhost:5000; which is set as a proxy in frontend configuration.
+URL de base : Actuellement, cette application ne peut être exécutée que localement et n'est pas hébergée comme une URL de base. L'application backend est hébergée par défaut à l'adresse http://localhost:5000, qui est définie comme un proxy dans la configuration du frontend.
 
 ## GESTION D'ERREURS
 
-Errors are retourned as JSON objects in the following format:
+Les erreurs sont retournées sous forme d'objets JSON au format suivant :
 {
 "success":False
 "error": 400
