@@ -198,7 +198,7 @@ def add_livre():
 def update_livre(id):
     body = request.get_json()
     try:
-        livre=livre.query.get(id)
+        livre=Livre.query.get(id)
         if livre is None:
             abort(404)
         livre.isbn = body.get("isbn")

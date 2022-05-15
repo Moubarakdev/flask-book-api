@@ -36,12 +36,10 @@ Ceci installera toutes les pacquets requis dans le fichier `requirements.txt`.
 
 ## CONFIGURATION DE LA BASE DE DONNÉES
 
-Avec Postgres en marche, restaurez une base de données en utilisant le fichier livredb.sql fourni. Depuis le dossier backend, dans le terminal, exécutez :
+Avec Postgres en marche, restaurez une base de données en utilisant le fichier bookdb.sql fourni. Depuis le dossier backend, dans le terminal, exécutez :
 
 ```bash
-
-//for me :: pg-dump -u postgres nom_base > livredb.sql
-psql livre_db < livredb.sql
+psql booksdb < bookdb.sql
 ```
 
 ## DÉMARER LE SERVEUR
@@ -83,11 +81,14 @@ URL de base : Actuellement, cette application ne peut être exécutée que local
 ## GESTION D'ERREURS
 
 Les erreurs sont retournées sous forme d'objets JSON au format suivant :
-{
-"success":False
-"error": 400
-"message":"Bad request
-}
+
+```
+    {
+    "success":False
+    "error": 400
+    "message":"Bad request
+    }
+```
 
 L'API retournera cinq types d'erreurs quand les requêtes échouent :
 
@@ -177,238 +178,173 @@ L'API retournera cinq types d'erreurs quand les requêtes échouent :
         "success": true
     }
 
-```
-
-. ## DELETE/livres (livre_id)
+. ## DELETE/Categories/(categorie_id)
 
     GENERAL:
-        Delete the book of the given ID if it exists. Return the id of the deleted plant, success value, total of plants a
+        Supprime la catégorie avec l'ID donneé s'il existe. Retourne l'ID de la catégorie suprimée, la valeur du success, et le nombre total de catégories
 
 
-        SAMPLE: curl -X DELETE http://localhost:5000/livres/10
+        SAMPLE: curl -X DELETE http://localhost:5000/categories/4
+
+    {
+        "nombre_categories": 3,
+        "success": true,
+        "supprimer ": 4
+    }
+
+. ## DELETE/livres/(livre_id)
+
+    GENERAL:
+        Supprime le livre avec l'ID donneé s'il existe. Retourne l'ID du livre suprimé, la valeur du success, et le nombre total de livres
+
+
+        SAMPLE: curl -X DELETE http://localhost:5000/livres/5
+
+    {
+        "success": true,
+        "supprimer ": 5,
+        "total_livres": 3
+    }
+
 ```
 
-         "deleted": 10,
-        {
-        "deleted": 10,
-        "plants": [
-            {
-                "id": 1,
-                "is_poisonous": false,
-                "name": "Gnato",
-                "primary_color": "Blue",
-                "scientific_name": "Gnato Togo",
-                "state": "TOGO"
-            },
-            {
-                "id": 2,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            },
-            {
-                "id": 3,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            },
-            {
-                "id": 4,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            },
-            {
-                "id": 5,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            },
-            {
-                "id": 6,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            },
-            {
-                "id": 7,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            },
-            {
-                "id": 8,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            },
-            {
-                "id": 9,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            },
-            {
-                "id": 11,
-                "is_poisonous": false,
-                "name": "yébéssé",
-                "primary_color": "Red",
-                "scientific_name": "Pimento",
-                "state": "TOGO"
-            }
-            ],
-            "success": true,
-            "totals_plants": 53
-        }
 
-````
+
+```
+
+. ##PATCH/categories(categorie_id)
+GENERAL:
+
+    Cette terminaison est utilisé pour modifier une catégorie
+    Nous retournons l'ID de la catégorie modifiée
+
+
+    SAMPLE.....For Patch
+
+    curl -X PATCH http://localhost:5000/categories/5 -H "Content-Type:application/json" -d "{"name":"magasine", "description": "Des magasines"}"
+
+    {
+        "categorie_id": 5,
+        "success": true
+    }
+
 . ##PATCH/livres(livre_id)
-  GENERAL:
-  This endpoint is used to update a primary_color of plant
-  We return a plant which we update
+GENERAL:
 
-  SAMPLE.....For Patch
-  ``` curl -X PATCH http://localhost:5000/plants/1 -H "Content-Type:application/json" -d "{"primary_color":"yellow"}"
-````
+    Cette terminaison est utilisé pour modifier un livre
+    Nous retournons l'ID du livre modifié
 
-````
-  {
-    "id": 1,
-    "primary_color": "yellow",
-    "success": true
-  }
-  ```
+    SAMPLE.....For Patch
+
+    curl -X PATCH http://localhost:5000/livres/6 -H "Content-Type:application/json" -d "{"isbn":"8888"}"
+
+    {
+        "id": 6,
+        "success": true
+    }
+
+. ## POST/categories
+
+    GENERAL:
+    Cette terminaison est utilisé pour créer une nouvelle categorie.
+    Dans le cas de la création d'une categorie :
+    Nous retournons l'ID de la nouvelle categorie créée, la categorie créée, la liste des categories et le nombre de categories.
+
+
+    SAMPLE.....For create
+
+    curl -X POST http://localhost:5000/categories -H "Content-Type:application/json" -d "{"name":"Parodie","decripttion":"Une parodie"}"
+
+    ```
+    {
+        "categorie_id": 6,
+        "success": true,
+        "total_categories": [
+            {
+                "description": "un sous-genre de la science-fiction qui exploite les ressorts de l'humour",
+                "id": 1,
+                "name": "Science-fiction humouristique"
+            },
+            {
+                "description": "un court récit en vers ou en prose qui vise à donner de façon plaisante une leçon de vie",
+                "id": 2,
+                "name": "Fable"
+            },
+            {
+                "description": "un genre théâtral dont l’origine remonte au théâtre grec antique",
+                "id": 3,
+                "name": "Tragédie"
+            },
+            {
+                "description": "des magazines",
+                "id": 5,
+                "name": "magazine"
+            },
+            {
+                "description": "une parodie",
+                "id": 6,
+                "name": "Parodie"
+            }
+        ]
+    }
+
+    ```
 
 . ## POST/livres
 
-  GENERAL:
-  This endpoint is used to create a new book.
-  In the case of the creation of a new question:
-  We return the ID of the new book created, the book that was created, the list of books and the number of books.
+    GENERAL:
+    Cette terminaison est utilisé pour créer un nouveau livre.
+    Dans le cas de la création d'un livre :
+    Nous retournons l'ID du nouveau livre créé, le livre créé, la liste des livres et le nombre de livres.
 
 
+    SAMPLE.....For create
 
-  SAMPLE.....For create
+    curl -X POST http://localhost:5000/livres -H "Content-Type:application/json" -d "{"isbn":"111122","titre":"Pimento","categorie_id":2,"date_publication":"2021-02-01",
+    "auteur":"Bosko","editeur="Bleach"}"
 
-  curl -X POST http://localhost:5000/livres -H "Content-Type:application/json" -d "{"isbn":"","titre":"Pimento","categorie_id":false,"date_publication":"Togo",
-  "auteur":"Togo","editeur="Blue"}"
-````
-
+    ````
     {
-    "created": 58,
-    "plants": [
-        {
-            "id": 1,
-            "is_poisonous": false,
-            "name": "Gnato",
-            "primary_color": "Blue",
-            "scientific_name": "Gnato Togo",
-            "state": "TOGO"
-        },
-        {
-            "id": 2,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        },
-        {
-            "id": 3,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        },
-        {
-            "id": 4,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        },
-        {
-            "id": 5,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        },
-        {
-            "id": 6,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        },
-        {
-            "id": 7,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        },
-        {
-            "id": 8,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        },
-        {
-            "id": 9,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        },
-        {
-            "id": 11,
-            "is_poisonous": false,
-            "name": "yébéssé",
-            "primary_color": "Red",
-            "scientific_name": "Pimento",
-            "state": "TOGO"
-        }
-    ],
-    "success": true,
-    "totals_plants": 54
-
-}
-
-```
+        "livre_id": 13,
+        "success": true,
+        "total_livres": [
+            {
+                "auteur": "Fredric Brown",
+                "categorie_id": 1,
+                "editeur": "Astounding",
+                "id": 1,
+                "titre": "Martiens, Go Home!"
+            },
+            {
+                "auteur": "Jean de La Fontaine",
+                "categorie_id": 2,
+                "editeur": "Desaint & Saillant",
+                "id": 2,
+                "titre": "Le corbeau et le renard"
+            },
+            {
+                "auteur": "William Shakespeare",
+                "categorie_id": 3,
+                "editeur": "John Danter",
+                "id": 3,
+                "titre": "Roméo et Juliette"
+            },
+            {
+                "auteur": "Loukoumane",
+                "categorie_id": 3,
+                "editeur": "Moise",
+                "id": 6,
+                "titre": "Au large de l'exellence"
+            },
+            {
+                "auteur": "Bosko",
+                "categorie_id": 1,
+                "editeur": "Bleach",
+                "id": 13,
+                "titre": "Pimento"
+            }
+        ]
+    }
 
 
-## Running
-```
-
-dropdb plants_database
-createdb plants_database
-psql plants_database_test < plants_database.sql
-
-```
-
-```
+    ```
