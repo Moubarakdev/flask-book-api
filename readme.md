@@ -104,9 +104,8 @@ L'API retournera cinq types d'erreurs quand les requêtes échouent :
 
 . ## GET/categories
 
-    GENERAL:
-        Cette terminaison retourne une liste d'objets Categorie, une valeur 'success', nombre total de categories.
-
+GENERAL:
+Cette terminaison retourne une liste d'objets Categorie, une valeur 'success', nombre total de categories.
 
     SAMPLE: curl http://localhost:5000/categories
     {
@@ -138,9 +137,8 @@ L'API retournera cinq types d'erreurs quand les requêtes échouent :
 
 . ## GET/livres
 
-    GENERAL:
-        Cette terminaison retourne une liste d'objets livre, une valeur 'success', nombre total de livres.
-
+GENERAL:
+Cette terminaison retourne une liste d'objets livre, une valeur 'success', nombre total de livres.
 
     SAMPLE: curl http://localhost:5000/livres
     {
@@ -180,9 +178,8 @@ L'API retournera cinq types d'erreurs quand les requêtes échouent :
 
 . ## DELETE/Categories/(categorie_id)
 
-    GENERAL:
-        Supprime la catégorie avec l'ID donneé s'il existe. Retourne l'ID de la catégorie suprimée, la valeur du success, et le nombre total de catégories
-
+GENERAL:
+Supprime la catégorie avec l'ID donneé s'il existe. Retourne l'ID de la catégorie suprimée, la valeur du success, et le nombre total de catégories
 
         SAMPLE: curl -X DELETE http://localhost:5000/categories/4
 
@@ -194,9 +191,8 @@ L'API retournera cinq types d'erreurs quand les requêtes échouent :
 
 . ## DELETE/livres/(livre_id)
 
-    GENERAL:
-        Supprime le livre avec l'ID donneé s'il existe. Retourne l'ID du livre suprimé, la valeur du success, et le nombre total de livres
-
+GENERAL:
+Supprime le livre avec l'ID donneé s'il existe. Retourne l'ID du livre suprimé, la valeur du success, et le nombre total de livres
 
         SAMPLE: curl -X DELETE http://localhost:5000/livres/5
 
@@ -213,11 +209,10 @@ L'API retournera cinq types d'erreurs quand les requêtes échouent :
 ```
 
 . ##PATCH/categories(categorie_id)
+
 GENERAL:
-
-    Cette terminaison est utilisé pour modifier une catégorie
-    Nous retournons l'ID de la catégorie modifiée
-
+Cette terminaison est utilisé pour modifier une catégorie
+Nous retournons l'ID de la catégorie modifiée
 
     SAMPLE.....For Patch
 
@@ -229,10 +224,10 @@ GENERAL:
     }
 
 . ##PATCH/livres(livre_id)
-GENERAL:
 
-    Cette terminaison est utilisé pour modifier un livre
-    Nous retournons l'ID du livre modifié
+GENERAL:
+Cette terminaison est utilisé pour modifier un livre
+Nous retournons l'ID du livre modifié
 
     SAMPLE.....For Patch
 
@@ -245,17 +240,16 @@ GENERAL:
 
 . ## POST/categories
 
-    GENERAL:
-    Cette terminaison est utilisé pour créer une nouvelle categorie.
-    Dans le cas de la création d'une categorie :
-    Nous retournons l'ID de la nouvelle categorie créée, la categorie créée, la liste des categories et le nombre de categories.
-
+GENERAL:
+Cette terminaison est utilisé pour créer une nouvelle categorie.
+Dans le cas de la création d'une categorie :
+Nous retournons l'ID de la nouvelle categorie créée, la categorie créée, la liste des categories et le nombre de categories.
 
     SAMPLE.....For create
 
     curl -X POST http://localhost:5000/categories -H "Content-Type:application/json" -d "{"name":"Parodie","decripttion":"Une parodie"}"
 
-    ```
+
     {
         "categorie_id": 6,
         "success": true,
@@ -288,22 +282,19 @@ GENERAL:
         ]
     }
 
-    ```
-
 . ## POST/livres
 
-    GENERAL:
-    Cette terminaison est utilisé pour créer un nouveau livre.
-    Dans le cas de la création d'un livre :
-    Nous retournons l'ID du nouveau livre créé, le livre créé, la liste des livres et le nombre de livres.
-
+GENERAL:
+Cette terminaison est utilisé pour créer un nouveau livre.
+Dans le cas de la création d'un livre :
+Nous retournons l'ID du nouveau livre créé, le livre créé, la liste des livres et le nombre de livres.
 
     SAMPLE.....For create
 
     curl -X POST http://localhost:5000/livres -H "Content-Type:application/json" -d "{"isbn":"111122","titre":"Pimento","categorie_id":2,"date_publication":"2021-02-01",
     "auteur":"Bosko","editeur="Bleach"}"
 
-    ````
+
     {
         "livre_id": 13,
         "success": true,
@@ -345,6 +336,3 @@ GENERAL:
             }
         ]
     }
-
-
-    ```
