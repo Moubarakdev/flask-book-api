@@ -6,7 +6,7 @@
 
 #### Python 3.10.0
 
-#### pip 22.0.4 from /usr/lib/python3/dist-packages/pip (python 3.8)
+#### Pip 22.0.4 from /usr/lib/python3/dist-packages/pip (python 3.8)
 
 Suivez les instructions pour installer la dernière version de python pour votre système dans le [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
