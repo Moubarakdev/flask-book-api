@@ -290,3 +290,6 @@ def error_badRequest(error):
         "error":405,
         "message":"Method not allowed"
     }),405
+
+if __name__ == "__main__":
+    app.run(debug=True)
