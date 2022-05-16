@@ -28,11 +28,11 @@ Ceci installera toutes les pacquets requis dans le fichier `requirements.txt`.
 
 ##### DÉPENDANCES CLÉS
 
-- [Flask](http://flask.pocoo.org/) is a lightweight backend microservices framework. Flask is required to handle requests and responses.
+- [Flask](http://flask.pocoo.org/) est un framework de microservices backend léger. Flask est nécessaire pour gérer les demandes et les réponses.
 
-- [SQLAlchemy](https://www.sqlalchemy.org/) is the Python SQL toolkit and ORM we'll use handle the lightweight sqlite database. You'll primarily work in app.py and can reference models.py.
+- [SQLAlchemy](https://www.sqlalchemy.org/) est la boîte à outils Python SQL et l'ORM que nous utiliserons pour gérer la base de données sqlite légère. Vous travaillerez principalement dans app.py et pourrez référencer models.py.
 
-- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server.
+- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) est l'extension que nous utiliserons pour gérer les demandes d'origine croisée de notre serveur frontend.
 
 ## CONFIGURATION DE LA BASE DE DONNÉES
 
@@ -93,7 +93,7 @@ Les erreurs sont retournées sous forme d'objets JSON au format suivant :
 L'API retournera cinq types d'erreurs quand les requêtes échouent :
 
 ```
-    . 400: Bad request
+   . 400: Bad request
     . 500: Internal server error
     . 422: Unprocessable
     . 404: Not found
