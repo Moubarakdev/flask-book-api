@@ -37,7 +37,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\" : \"\",\r\n    \"description\" : \"\"\r\n}",
+							"raw": "{\r\n    \"name\" : \"Parodie\",\r\n    \"description\" : \"une parodie\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -115,6 +115,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "RECUPERER UNE CATEGORIE",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -150,7 +158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"isbn\" : \"\",\r\n    \"titre\" : \"\",\r\n    \"categorie_id\": ,\r\n    \"date_publication\" : ,\r\n    \"auteur\" : ,\r\n    \"editeur\":\r\n}",
+							"raw": "{\r\n    \"isbn\" : \"1111\",\r\n    \"titre\" : \"Pimento\",\r\n    \"categorie_id\": 1,\r\n    \"date_publication\" : \"2022-02-01\",\r\n    \"auteur\" : \"Bosko\",\r\n    \"editeur\": \"Bleach\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -226,6 +234,22 @@
 								"1"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "RECUPERER UN LIVRE",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "LISTE DES LIVRES PAR CATEGORIES",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

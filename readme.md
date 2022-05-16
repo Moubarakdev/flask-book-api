@@ -49,7 +49,7 @@ Depuis le répertoire `flask-book-api`, assurez-vous d'abord que vous travaillez
 Pour exécuter le serveur sur Linux ou Mac, exécutez :
 
 ```bash
-export FLASK_APP=flaskr
+export FLASK_APP=app.py
 export FLASK_ENV=development
 flask run
 ```
@@ -57,14 +57,14 @@ flask run
 Pour exécuter le serveur sur Windows, exécutez :
 
 ```bash
-set FLASK_APP=flaskr
+set FLASK_APP=app.py
 set FLASK_ENV=development
 flask run
 ```
 
 Mettre la variable `FLASK_ENV` à `development` va détecter les changements de fichiers et redémarrer le serveur automatiquement.
 
-En mettant la variable `FLASK_APP` à `flaskr`, flask utilisera le répertoire `flaskr` et le fichier `__init__.py` pour trouver l'application.
+En mettant la variable `FLASK_APP` à `app.py`, flask utilisera le fichier `app.py` pour trouver l'application.
 
 Vous pouvez aussi exécutez
 

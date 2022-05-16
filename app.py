@@ -1,6 +1,3 @@
-from ast import Not
-import json
-from re import T
 from flask import Flask, abort, jsonify, request
 from sqlalchemy import null
 from Models import Livre, Categorie, setup_db
@@ -238,6 +235,23 @@ def delete_livre(id):
       abort(422) #Unprocessable Entity
 
 
+##################################
+# LISTE DES LIVRES PAR CATEGORIE
+##################################
+
+@app.route('/livres/categorie/<int:id>', methods=['GET'])
+def get_livresinid(id):
+    try:
+        categorie = Categorie.query.get(id) 
+        livres = Livre.query.filter_by(categorie_id = categorie.id).all()
+        livre_format = [livre.format() for livre in livres]
+        return jsonify({
+            'success': True,
+            'livres': livre_format,
+            'nombre_livres': len(livres)
+        })
+    except:
+        abort(400)
 
     #######################################################################################################
     #                                                                                                     #
@@ -290,6 +304,8 @@ def error_badRequest(error):
         "error":405,
         "message":"Method not allowed"
     }),405
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
