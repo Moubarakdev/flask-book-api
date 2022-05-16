@@ -38,7 +38,7 @@ def get_categories():
             'nombre_categories': len(categories)
         })
     except:
-        abort(400)
+        abort(405)
 
 ##################################
 # Récupérer une catégorie
@@ -55,7 +55,7 @@ def get_categorie(id):
                 'categorie': categorie.format()
             })
     except:
-        abort(400)
+        abort(405)
 
 ##################################
 # Ajouter une categorie
@@ -70,14 +70,17 @@ def add_categorie():
 
 
         categorie = Categorie(name=new_name,description=new_description)
-        categorie.insert()
+        try:
+            categorie.insert()
+        except :
+            abort(400)
         return jsonify({
             "success" : True,
             "categorie_id" : categorie.id,
             "total_categories" : [categorie.format() for categorie in Categorie.query.all()]
         })
     except :
-        abort(400)
+        abort(405)
 
 ##################################
 # Modifier une categorie
@@ -92,14 +95,15 @@ def update_categorie(id):
 
         categorie.name = body.get("name")
         categorie.description = body.get("description")
-        
-        categorie.update()
+        try:
+            categorie.update()
+        except : abort(400)
         return jsonify({
             'success':True,
             'categorie_id':categorie.id
         })
     except:
-      abort(400) # Bad request. The user send request that server could not be understand
+      abort(405) # Bad request. The user send request that server could not be understand
 
 ##################################
 # Supprimer une categorie 
@@ -110,14 +114,18 @@ def delete_categorie(id):
         categorie= Categorie.query.get(id)
         if categorie is None:
             abort(404)
-        categorie.delete()
+        try:
+            categorie.delete()
+        except:
+            abort(422) #Unprocessable Entity
+
         return jsonify({
             'success':True,
             'supprimer ': categorie.id,
             'nombre_categories':len(Categorie.query.all())
         })
     except:
-      abort(422) #Unprocessable Entity
+      abort(405) 
 
 
     #######################################################################################################
@@ -142,22 +150,24 @@ def get_livres():
             'nombre_livres': len(livres)
         })
     except:
-        abort(400)
+        abort(405)
 
 ##################################
 # Récupérer un livre
 ##################################
 @app.route('/livres/<int:id>', methods=['GET'])
 def get_livre(id):
-    
-    livre = Livre.query.get(id)
-    if livre is None: 
-        abort(404)
-    else:
-        return jsonify ({
-            'success' : True,
-            'livres': livre.format(),
-        })
+    try :
+        livre = Livre.query.get(id)
+        if livre is None: 
+            abort(404)
+        else:
+            return jsonify ({
+                'success' : True,
+                'livres': livre.format(),
+            })
+    except:
+        abort(405)
   
   
 ##################################
@@ -179,14 +189,16 @@ def add_livre():
         if categorie is None:
             abort(404)
         livre = Livre(isbn=new_isbn,titre=new_titre,categorie_id=new_categorie_id,date_publication=new_date_publication,auteur=new_auteur,editeur=new_editeur)
-        livre.insert()
+        try:
+            livre.insert()
+        except: abort(400)
         return jsonify({
             "success" : True,
             "livre_id" : livre.id,
             "total_livres" : [livre.format() for livre in Livre.query.all()]
         })
     except:
-        abort(400)
+        abort(405)
 
 ##################################
 # Modifier un livre
@@ -208,13 +220,15 @@ def update_livre(id):
         categorie = Categorie.query.get(body.get("categorie_id"))
         if categorie is None:
             abort(404)
-        livre.update()
+        try:
+            livre.update()
+        except: abort(400)
         return jsonify({
             'success':True,
             'id':livre.id
         })
     except:
-      abort(400) # Bad request. L'utilisateur a envoyé une requête que le serveur ne peut pas comprendre The user send request that server could not be understand
+      abort(405) # Bad request. L'utilisateur a envoyé une requête que le serveur ne peut pas comprendre The user send request that server could not be understand
 
 ##################################
 # Supprimer un livre
@@ -251,7 +265,7 @@ def get_livresinid(id):
             'nombre_livres': len(livres)
         })
     except:
-        abort(400)
+        abort(405)
     
     #######################################################################################################
     #                                                                                                     #

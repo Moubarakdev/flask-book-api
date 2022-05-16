@@ -106,8 +106,10 @@ L'API retournera cinq types d'erreurs quand les requêtes échouent :
 
 . ## GET/categories
 
+```
 GENERAL:
 Cette terminaison retourne une liste d'objets Categorie, une valeur 'success', nombre total de categories.
+```
 
     SAMPLE: curl http://localhost:5000/categories
     {
@@ -139,8 +141,10 @@ Cette terminaison retourne une liste d'objets Categorie, une valeur 'success', n
 
 . ## GET/livres
 
+```
 GENERAL:
 Cette terminaison retourne une liste d'objets livre, une valeur 'success', nombre total de livres.
+```
 
     SAMPLE: curl http://localhost:5000/livres
     {
@@ -180,8 +184,10 @@ Cette terminaison retourne une liste d'objets livre, une valeur 'success', nombr
 
 . ## DELETE/Categories/(categorie_id)
 
+```
 GENERAL:
 Supprime la catégorie avec l'ID donneé s'il existe. Retourne l'ID de la catégorie suprimée, la valeur du success, et le nombre total de catégories
+```
 
         SAMPLE: curl -X DELETE http://localhost:5000/categories/4
 
@@ -193,8 +199,10 @@ Supprime la catégorie avec l'ID donneé s'il existe. Retourne l'ID de la catég
 
 . ## DELETE/livres/(livre_id)
 
+```
 GENERAL:
 Supprime le livre avec l'ID donneé s'il existe. Retourne l'ID du livre suprimé, la valeur du success, et le nombre total de livres
+```
 
         SAMPLE: curl -X DELETE http://localhost:5000/livres/5
 
@@ -205,7 +213,6 @@ Supprime le livre avec l'ID donneé s'il existe. Retourne l'ID du livre suprimé
     }
 
 ```
-
 
 
 ```
