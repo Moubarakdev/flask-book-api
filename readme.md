@@ -212,11 +212,6 @@ Supprime le livre avec l'ID donneé s'il existe. Retourne l'ID du livre suprimé
         "total_livres": 3
     }
 
-```
-
-
-```
-
 . ##PATCH/categories(categorie_id)
 
 ```
