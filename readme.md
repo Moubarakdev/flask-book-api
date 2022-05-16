@@ -348,3 +348,5 @@ Nous retournons l'ID du nouveau livre créé, le livre créé, la liste des livr
             }
         ]
     }
+
+Pour ceux qui utilisent ``postman` vous pouvez le fichier API LIVRE.postman_collection.json fourni dans le dossier `backend` afin d'avoir une collection de requête pour les tests
