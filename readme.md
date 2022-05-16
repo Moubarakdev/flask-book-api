@@ -93,7 +93,7 @@ Les erreurs sont retournées sous forme d'objets JSON au format suivant :
 L'API retournera cinq types d'erreurs quand les requêtes échouent :
 
 ```
-   . 400: Bad request
+    . 400: Bad request
     . 500: Internal server error
     . 422: Unprocessable
     . 404: Not found
