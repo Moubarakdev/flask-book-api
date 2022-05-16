@@ -219,9 +219,11 @@ Supprime le livre avec l'ID donneé s'il existe. Retourne l'ID du livre suprimé
 
 . ##PATCH/categories(categorie_id)
 
+```
 GENERAL:
 Cette terminaison est utilisé pour modifier une catégorie
 Nous retournons l'ID de la catégorie modifiée
+```
 
     SAMPLE.....For Patch
 
@@ -234,9 +236,11 @@ Nous retournons l'ID de la catégorie modifiée
 
 . ##PATCH/livres(livre_id)
 
+```
 GENERAL:
 Cette terminaison est utilisé pour modifier un livre
 Nous retournons l'ID du livre modifié
+```
 
     SAMPLE.....For Patch
 
@@ -249,10 +253,12 @@ Nous retournons l'ID du livre modifié
 
 . ## POST/categories
 
+```
 GENERAL:
 Cette terminaison est utilisé pour créer une nouvelle categorie.
 Dans le cas de la création d'une categorie :
 Nous retournons l'ID de la nouvelle categorie créée, la categorie créée, la liste des categories et le nombre de categories.
+```
 
     SAMPLE.....For create
 
@@ -293,10 +299,12 @@ Nous retournons l'ID de la nouvelle categorie créée, la categorie créée, la 
 
 . ## POST/livres
 
+```
 GENERAL:
 Cette terminaison est utilisé pour créer un nouveau livre.
 Dans le cas de la création d'un livre :
 Nous retournons l'ID du nouveau livre créé, le livre créé, la liste des livres et le nombre de livres.
+```
 
     SAMPLE.....For create
 
